@@ -1,66 +1,50 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>
-      处理垃圾
-    </title>
+<HTML>
+  <HEAD>
+    <TITLE>
+      drag use jquery ui
+    </TITLE>
     <SCRIPT src="./scripts/jquery-2.2.4.min.js"></SCRIPT>
-    <SCRIPT src="./scripts/jquery.ui.touch-punch.min.js"></SCRIPT>
     <SCRIPT src="./scripts/jquery-ui.min.js"></SCRIPT>
-  </head>
-<body>
+    <SCRIPT src="./scripts/jquery.ui.touch-punch.min.js"></SCRIPT>
+    <style>
+        #draggable { width: 100px; height: 100px; padding: 0.5em; float: left; margin: 10px 10px 10px 0;  }
+        #droppable { width: 150px; height: 150px; padding: 0.5em; float: left; margin: 10px;  }
+    </style>
+  </HEAD>
+  <BODY>
+    <IMG id="bin1" src="./resources/bin1.png" ></IMG>
+    <IMG id="bin2" src="./resources/bin2.png" ></IMG>
+    <IMG id="img1" src="./resources/apple.png"></IMG>
+    <IMG id="img2" src="./resources/banana.png"></IMG>
+    <IMG id="img3" src="./resources/apple.png"></IMG>
+    <IMG id="img4" src="./resources/apple.png"></IMG>
+    <IMG id="img5" src="./resources/apple.png"></IMG>
+    
+    <SCRIPT>
+      $(function(){
+        $("img#img1").draggable();
+        $("img#img2").draggable();
+        $("img#img3").draggable();
+        $("img#img4").draggable();
+        $("img#img5").draggable();
+        $("img#bin1").droppable({
+          drop: function(event, ui){
+            console.log("dropped");
+            console.log(event);
+            console.log(ui);
+            ui.draggable.remove();
+          }
+          });
+        $("img#bin2").droppable({
+          drop: function(event, ui){
+            console.log("dropped!");
+            ui.draggable.remove();
+          }
+          });
+      });
+    </SCRIPT>
 
-  <div id="div1" style="left:200px;bottom:0px" ondrop="drop(event)" ondragover="allowDrop(event)">
-    <img src="./resources/bin1.png"></img>
-  </div>
-  <div id="div2" style="left:200px;bottom:0px" ondrop="drop(event)" ondragover="allowDrop(event)">
-    <img src="./resources/bin2.png"></img>
-  </div>
-  <div id="img1" style="background:url('./resources/apple.png') no-repeat;width:60;height:80" width="60" height="80" draggable="true" ondragstart="drag(event)">
-    1111
-  </div>
-  <div id="img2" style="background:url('./resources/banana.png') no-repeat;" width="99" height="80" draggable="true" ondragstart="drag(event)">
-    222
-  </div>
-  <div id="div3" style="position:relative;width:100px;height:100px;" draggable="true" ondragstart="drag(event)">
-    <img src="./resources/apple.png" alt="" />
-    <div style="position:absolute;width:100px;height:100px;z-indent:2;left:1;top:0;">
-      文字
-    </div>
-  </div>
-  <img id="img3" src="./resources/apple.png" draggable="true" ondragstart="drag(event)"></img>
-  <img id="img4" src="./resources/banana.png" draggable="true" ondragstart="drag(event)"></img>
-  <img id="img5" src="./resources/banana.png" ></img>
-  <script type="text/javascript">
-    function allowDrop(ev)
-    {
-      ev.preventDefault();
-    }
+  </BODY>
 
-    function drag(ev)
-    {
-      ev.dataTransfer.setData("Text",ev.target.id);
-    }
+</HTML>
 
-    function drop(ev)
-    {
-      ev.preventDefault();
-      var data=ev.dataTransfer.getData("Text");
-      ev.target.appendChild(document.getElementById(data));
-    }
-
-    function randomPosition(){
-
-    }
-
-    $("img#img5").draggable();
-    $("div#div1").droppable({
-        drop: function(event, ui){
-          $("img#img5").remove();
-        }
-    });
-
-  </script>
-</body>
-</html> 
